@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Answer</title>
+    <link th:href="@{/webjars/bootstrap/5.0.0-beta3/css/bootstrap.min.css}" href="../static/css/bootstrap/bootstrap.css"
+          rel="stylesheet">
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/bifont/bootstrap-icons.css}" href="../static/css/bifont/bootstrap-icons.css" rel="stylesheet">
+    <script th:src="@{/webjars/bootstrap/5.0.0-beta3/js/bootstrap.js}"
+            src="../static/js/bootstrap/bootstrap.js"></script>
+    <script th:src="@{/js/answer.js}" defer></script>
+</head>
+<body class="bg-light">
+<nav th:replace="header :: navbar">
+</nav>
+<div class="container d-flex flex-column align-items-center">
+    <div class="mt-3 bg-white p-3 rounded-3 w-33">
+        <form th:action="@{/add_answer}" action="/sf" method="post">
+            <div class="d-flex flex-column px-3" id="add_answer_form">
+                <th:block th:each="field : ${fields}" th:switch="${field.type}">
+                    <div class="mb-2">
+                        <label th:text="${field.label}" th:classappend="${field.required ? 'required' : ''}"
+                               class="form-label text-secondary" th:for="${field.id}">Single Line</label>
+                        <th:block
+                                th:case="${T(com.softarex.datacollector.model.entity.field.FieldType).SINGLE_LINE_TEXT}">
+                            <input class="form-control w-100" type="text" th:name="${field.id}" th:id="${field.id}"
+                                   th:required="${field.required}"/>
+                        </th:block>
+                        <th:block
+                                th:case="${T(com.softarex.datacollector.model.entity.field.FieldType).MULTILINE_TEXT}">
+                            <textarea class="form-control w-100" th:name="${field.id}" th:id="${field.id}"
+                                      th:required="${field.required}"></textarea>
+                        </th:block>
+                        <div th:case="${T(com.softarex.datacollector.model.entity.field.FieldType).RADIO_BUTTON}"
+                             class="d-flex flex-row flex-wrap">
+
+                            <div th:each="option, iter : ${field.options}" class="form-check w-50">
+                                <input class="form-check-input" type="radio" th:name="${field.id}"
+                                       th:id="${field.id}+'.'+${option}"
+                                       th:value="${option}" th:checked="${iter.index == 0 && field.required}">
+                                <label th:text="${option}" class="form-check-label"
+                                       th:for="${field.id}+'.'+${option}">radio</label>
+                            </div>
+                        </div>
+                        <div th:case="${T(com.softarex.datacollector.model.entity.field.FieldType).CHECKBOX}"
+                             class="d-flex flex-row flex-wrap">
+                            <div th:each="option : ${field.options}" class="form-check w-50">
+                                <input class="form-check-input" type="checkbox" th:name="${field.id}"
+                                       th:id="${field.id}+'.'+${option}"
+                                       th:value="${option}">
+                                <label th:text="${option}" class="form-check-label"
+                                       th:for="${field.id}+'.'+
+                                       ${option}">check</label>
+                            </div>
+                        </div>
+                        <th:block th:case="${T(com.softarex.datacollector.model.entity.field.FieldType).COMBOBOX}">
+                            <select class="form-select w-100" th:name="${field.id}" th:id="${field.id}"
+                                    th:required="${field.required}">
+                                <option th:each="option : ${field.options}" th:text="${option}"
+                                        th:value="${option}"></option>
+                            </select>
+                        </th:block>
+                        <th:block th:case="${T(com.softarex.datacollector.model.entity.field.FieldType).DATE}">
+                            <input class="form-control w-100" type="date" th:name="${field.id}" th:id="${field.id}"
+                                   th:required="${field.required}"/>
+                        </th:block>
+                    </div>
+                </th:block>
+                <div class="mt-3">
+                    <button class="w-25 btn btn-primary" type="submit">Submit</button>
+                    <button class="w-25 btn btn-secondary" type="button" onclick="resetForm()">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

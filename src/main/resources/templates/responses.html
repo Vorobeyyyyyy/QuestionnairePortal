@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fields</title>
+    <link th:href="@{/webjars/bootstrap/5.0.0-beta3/css/bootstrap.min.css}" href="../static/css/bootstrap/bootstrap.css"
+          rel="stylesheet">
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/bifont/bootstrap-icons.css}" href="../static/css/bifont/bootstrap-icons.css" rel="stylesheet">
+    <script th:src="@{/webjars/bootstrap/5.0.0-beta3/js/bootstrap.js}"
+            src="../static/js/bootstrap/bootstrap.js"></script>
+    <script th:src="@{/webjars/vue/3.0.11/dist/vue.global.js}"></script>
+    <script th:type="module" th:src="@{/js/responses.js}" defer></script>
+    <script th:type="module" th:src="@{/component/pagination.js}" defer></script>
+    <script th:src="@{/webjars/axios/0.21.1/dist/axios.min.js}"></script>
+    <script th:src="@{/webjars/sockjs-client/1.5.1/sockjs.min.js}"></script>
+    <script th:src="@{/webjars/stomp-websocket/2.3.4/stomp.min.js}"></script>
+</head>
+<body class="bg-light">
+<nav th:replace="header :: navbar">
+</nav>
+<div id="fields">
+    <div class="container mt-3 p-0 bg-white w-100 d-flex flex-column">
+        <div class="border">
+            <div class="fs-2 m-2">Responses</div>
+        </div>
+        <div class="border border-top-0">
+            <div class="m-2">
+                <table class="table table-striped d-flex flex-column">
+                    <thead>
+                    <tr class="d-flex">
+                        <th v-for="field in fields" scope="col" class="w-100">{{field.label}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="answer in answers" class="d-flex">
+                        <td v-for="field in fields" class="w-100" v-text="fieldAnswer(answer, field)"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination
+                    @on-page-change="pageClicked"
+                    @on-page-size-change="pageSizeChanged"
+                    :page="page">
+            </pagination>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
