@@ -1,6 +1,7 @@
 package com.softarex.datacollector.model.service;
 
 import com.softarex.datacollector.exception.UserNotFoundException;
+import com.softarex.datacollector.model.property.MailProperty;
 import com.softarex.datacollector.model.repository.UserRepository;
 import com.softarex.datacollector.model.entity.user.Role;
 import com.softarex.datacollector.model.entity.user.SecurityUserDetails;
@@ -25,16 +26,8 @@ public class UserService implements UserDetailsService {
     private final static Logger logger = LogManager.getLogger();
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private MailService mailService;
+    private MailProperty mailProperty;
 
     @Override
     @Transactional
@@ -58,6 +51,7 @@ public class UserService implements UserDetailsService {
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setRoles(Collections.singleton(new Role(1,"ROLE_USER")));
         userRepository.save(user);
+        mailService.sendMessage(user, mailProperty.getRegistrationSubject(), mailProperty.getRegistrationText());
     }
 
     @Transactional
@@ -87,5 +81,26 @@ public class UserService implements UserDetailsService {
     public void updateUserPassword(User user, String newPassword) {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+        mailService.sendMessage(user, mailProperty.getPasswordChangeText(), mailProperty.getPasswordChangeText());
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Autowired
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
+
+    @Autowired
+    public void setMailProperty(MailProperty mailProperty) {
+        this.mailProperty = mailProperty;
     }
 }
