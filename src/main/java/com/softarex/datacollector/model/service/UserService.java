@@ -73,11 +73,6 @@ public class UserService implements UserDetailsService {
                 user.getFirstName(), user.getLastName(), user.getPhoneNumber(), null, null);
     }
 
-    @Transactional
-    public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
-    }
-
     public void updateUserPassword(User user, String newPassword) {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);

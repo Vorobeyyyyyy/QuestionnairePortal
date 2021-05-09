@@ -17,19 +17,8 @@ import java.util.Map;
 @Controller
 public class FieldsController {
     private final static Logger logger = LogManager.getLogger();
-
     private ModelMapper modelMapper;
     private FieldService fieldService;
-
-    @Autowired
-    public void setModelMapper(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
-    @Autowired
-    public void setFieldService(FieldService fieldService) {
-        this.fieldService = fieldService;
-    }
 
     @GetMapping("/fields")
     public String fields() {
@@ -64,5 +53,13 @@ public class FieldsController {
         return modelMapper.map(fieldDto, Field.class);
     }
 
+    @Autowired
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
+    @Autowired
+    public void setFieldService(FieldService fieldService) {
+        this.fieldService = fieldService;
+    }
 }

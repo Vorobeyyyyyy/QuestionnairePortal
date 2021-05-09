@@ -23,21 +23,6 @@ public class AnswerController {
     private AnswerService answerService;
     private SimpMessagingTemplate messagingTemplate;
 
-    @Autowired
-    public void setFieldService(FieldService fieldService) {
-        this.fieldService = fieldService;
-    }
-
-    @Autowired
-    public void setAnswerService(AnswerService answerService) {
-        this.answerService = answerService;
-    }
-
-    @Autowired
-    public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
-        this.messagingTemplate = messagingTemplate;
-    }
-
     @GetMapping("/")
     public String answer(Model model) {
         List<Field> fields = fieldService.findByActive(true);
@@ -64,5 +49,20 @@ public class AnswerController {
     public Page<Answer> findAnswers(@RequestParam(required = false, defaultValue = "0") int page,
                                     @RequestParam(required = false, defaultValue = "0", name = "size") int pageSize) {
         return answerService.findAll(page, pageSize);
+    }
+
+    @Autowired
+    public void setFieldService(FieldService fieldService) {
+        this.fieldService = fieldService;
+    }
+
+    @Autowired
+    public void setAnswerService(AnswerService answerService) {
+        this.answerService = answerService;
+    }
+
+    @Autowired
+    public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
     }
 }

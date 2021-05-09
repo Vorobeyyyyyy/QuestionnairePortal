@@ -29,21 +29,6 @@ public class AnswerService {
     private FieldRepository fieldRepository;
     private FieldAnswerRepository fieldAnswerRepository;
 
-    @Autowired
-    public void setAnswerRepository(AnswerRepository answerRepository) {
-        this.answerRepository = answerRepository;
-    }
-
-    @Autowired
-    public void setFieldRepository(FieldRepository fieldRepository) {
-        this.fieldRepository = fieldRepository;
-    }
-
-    @Autowired
-    public void setFieldAnswerRepository(FieldAnswerRepository fieldAnswerRepository) {
-        this.fieldAnswerRepository = fieldAnswerRepository;
-    }
-
     @Transactional
     public Answer addAnswer(MultiValueMap<String, String> rawFieldAnswers) {
         Answer answer = new Answer();
@@ -80,5 +65,20 @@ public class AnswerService {
 
     public void addAnswer(Answer answer) {
         answerRepository.save(answer);
+    }
+
+    @Autowired
+    public void setAnswerRepository(AnswerRepository answerRepository) {
+        this.answerRepository = answerRepository;
+    }
+
+    @Autowired
+    public void setFieldRepository(FieldRepository fieldRepository) {
+        this.fieldRepository = fieldRepository;
+    }
+
+    @Autowired
+    public void setFieldAnswerRepository(FieldAnswerRepository fieldAnswerRepository) {
+        this.fieldAnswerRepository = fieldAnswerRepository;
     }
 }

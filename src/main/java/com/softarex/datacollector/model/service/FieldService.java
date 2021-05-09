@@ -14,11 +14,6 @@ import java.util.List;
 public class FieldService {
     private FieldRepository fieldRepository;
 
-    @Autowired
-    public void setFieldRepository(FieldRepository fieldRepository) {
-        this.fieldRepository = fieldRepository;
-    }
-
     public void updateField(Field field) {
         fieldRepository.save(field);
     }
@@ -40,5 +35,10 @@ public class FieldService {
 
     public void removeField(long id) {
         fieldRepository.deleteById(id);
+    }
+
+    @Autowired
+    public void setFieldRepository(FieldRepository fieldRepository) {
+        this.fieldRepository = fieldRepository;
     }
 }
