@@ -2,6 +2,7 @@ package com.softarex.datacollector.model.entity.answer;
 
 import com.softarex.datacollector.model.entity.BaseEntity;
 import com.softarex.datacollector.model.entity.user.User;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -46,22 +47,21 @@ public class Answer extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Answer answer = (Answer) o;
-        return Objects.equals(id, answer.id) && Objects.equals(fieldAnswers, answer.fieldAnswers);
+
+        return id != null && id.equals(answer.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fieldAnswers);
+        return getClass().hashCode();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Answer{");
-        sb.append("id=").append(id);
-        sb.append(", fieldAnswerOptions=").append(fieldAnswers);
-        sb.append('}');
-        return sb.toString();
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "asker = " + asker + ")";
     }
 }

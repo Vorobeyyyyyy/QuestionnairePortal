@@ -1,10 +1,11 @@
 package com.softarex.datacollector.model.entity;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.util.Objects;
 
 @MappedSuperclass
 public class BaseEntity {
@@ -30,13 +31,20 @@ public class BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         BaseEntity that = (BaseEntity) o;
-        return Objects.equals(id, that.id);
+
+        return id != null && id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return 699169739;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ")";
     }
 }

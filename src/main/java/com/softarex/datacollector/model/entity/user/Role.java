@@ -1,6 +1,7 @@
 package com.softarex.datacollector.model.entity.user;
 
 import com.softarex.datacollector.model.entity.BaseEntity;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -39,22 +40,21 @@ public class Role extends BaseEntity implements GrantedAuthority {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Role role1 = (Role) o;
-        return id == role1.id && Objects.equals(roleName, role1.roleName);
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Role role = (Role) o;
+
+        return id != null && id.equals(role.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roleName);
+        return getClass().hashCode();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Role{");
-        sb.append("id=").append(id);
-        sb.append(", role='").append(roleName).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "roleName = " + roleName + ")";
     }
 }

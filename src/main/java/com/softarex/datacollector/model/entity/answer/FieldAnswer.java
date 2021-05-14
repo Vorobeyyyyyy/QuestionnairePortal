@@ -2,6 +2,7 @@ package com.softarex.datacollector.model.entity.answer;
 
 import com.softarex.datacollector.model.entity.BaseEntity;
 import com.softarex.datacollector.model.entity.field.Field;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,7 +19,7 @@ public class FieldAnswer extends BaseEntity {
     @JoinColumn(name = "field_id")
     private Field field;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(name = "field_answer_options", joinColumns = @JoinColumn(name = "field_answer_id"))
     @Column(name = "option")
     private List<String> options;
@@ -60,24 +61,23 @@ public class FieldAnswer extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         FieldAnswer that = (FieldAnswer) o;
-        return Objects.equals(id, that.id) && Objects.equals(answer, that.answer) && Objects.equals(field, that.field) && Objects.equals(options, that.options);
+
+        return id != null && id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, answer, field, options);
+        return getClass().hashCode();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("FieldAnswer{");
-        sb.append("id=").append(id);
-        sb.append(", answer=").append(answer);
-        sb.append(", field=").append(field);
-        sb.append(", options=").append(options);
-        sb.append('}');
-        return sb.toString();
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "answer = " + answer + ", " +
+                "field = " + field + ", " +
+                "options = " + options + ")";
     }
 }

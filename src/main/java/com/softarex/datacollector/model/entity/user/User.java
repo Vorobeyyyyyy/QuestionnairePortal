@@ -1,6 +1,7 @@
 package com.softarex.datacollector.model.entity.user;
 
 import com.softarex.datacollector.model.entity.BaseEntity;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -94,26 +95,25 @@ public class User extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(email, user.email) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+
+        return id != null && id.equals(user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, firstName, lastName, password, roles);
+        return getClass().hashCode();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("id=").append(id);
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", firstName='").append(firstName).append('\'');
-        sb.append(", secondName='").append(lastName).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", roles=").append(roles);
-        sb.append('}');
-        return sb.toString();
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "email = " + email + ", " +
+                "firstName = " + firstName + ", " +
+                "lastName = " + lastName + ", " +
+                "password = " + password + ", " +
+                "phoneNumber = " + phoneNumber + ")";
     }
 }

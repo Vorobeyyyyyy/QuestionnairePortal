@@ -3,16 +3,19 @@ package com.softarex.datacollector.model.entity.field;
 
 import com.softarex.datacollector.model.entity.BaseEntity;
 import com.softarex.datacollector.model.entity.user.User;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "fields")
 public class Field extends BaseEntity {
     private String label;
+    @Enumerated(EnumType.STRING)
     private FieldType type;
     @ManyToOne
     @JoinColumn(name = "asker_id")
@@ -89,26 +92,26 @@ public class Field extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Field field = (Field) o;
-        return id == field.id && required == field.required && active == field.active && Objects.equals(label, field.label) && type == field.type && Objects.equals(options, field.options);
+
+        return id != null && id.equals(field.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, label, type, options, required, active);
+        return getClass().hashCode();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Field{");
-        sb.append("id=").append(id);
-        sb.append(", label='").append(label).append('\'');
-        sb.append(", type=").append(type);
-        sb.append(", options=").append(options);
-        sb.append(", required=").append(required);
-        sb.append(", active=").append(active);
-        sb.append('}');
-        return sb.toString();
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "label = " + label + ", " +
+                "type = " + type + ", " +
+                "asker = " + asker + ", " +
+                "options = " + options + ", " +
+                "required = " + required + ", " +
+                "active = " + active + ")";
     }
 }
