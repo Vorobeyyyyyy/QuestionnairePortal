@@ -5,7 +5,6 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 @Table(name = "users")

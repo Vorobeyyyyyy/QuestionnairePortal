@@ -5,7 +5,6 @@ import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
@@ -26,10 +25,6 @@ public class Role extends BaseEntity implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return roleName;
-    }
-
-    public String getRoleName() {
         return roleName;
     }
 

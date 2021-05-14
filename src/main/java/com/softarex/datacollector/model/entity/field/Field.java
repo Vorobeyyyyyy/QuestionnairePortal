@@ -6,10 +6,7 @@ import com.softarex.datacollector.model.entity.user.User;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
 
 @Entity
 @Table(name = "fields")
