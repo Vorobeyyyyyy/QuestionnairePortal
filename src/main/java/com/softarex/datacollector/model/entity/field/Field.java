@@ -1,23 +1,27 @@
 package com.softarex.datacollector.model.entity.field;
 
 
+import com.softarex.datacollector.model.entity.BaseEntity;
+import com.softarex.datacollector.model.entity.user.User;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "fields")
-public class Field {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "field_id", unique = true, nullable = false)
-    private long id;
+public class Field extends BaseEntity {
     private String label;
     private FieldType type;
+    @ManyToOne
+    @JoinColumn(name = "asker_id")
+    private User asker;
+
     @ElementCollection
     @CollectionTable(name = "field_options", joinColumns = @JoinColumn(name = "field_id"))
     @Column(name = "option")
-    private Collection<String> options;
+    private List<String> options;
     private boolean required;
     private boolean active;
 
@@ -25,21 +29,13 @@ public class Field {
     public Field() {
     }
 
-    public Field(long id, String label, FieldType type, boolean required, boolean active, Collection<String> options) {
+    public Field(long id, String label, FieldType type, boolean required, boolean active, List<String> options) {
         this.id = id;
         this.label = label;
         this.type = type;
         this.required = required;
         this.active = active;
         this.options = options;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getLabel() {
@@ -58,11 +54,11 @@ public class Field {
         this.type = type;
     }
 
-    public Collection<String> getOptions() {
+    public List<String> getOptions() {
         return options;
     }
 
-    public void setOptions(Collection<String> options) {
+    public void setOptions(List<String> options) {
         this.options = options;
     }
 
@@ -80,6 +76,14 @@ public class Field {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public User getAsker() {
+        return asker;
+    }
+
+    public void setAsker(User asker) {
+        this.asker = asker;
     }
 
     @Override

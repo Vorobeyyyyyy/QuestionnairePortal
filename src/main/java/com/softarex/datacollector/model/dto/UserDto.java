@@ -1,4 +1,4 @@
-package com.softarex.datacollector.model.entity.user;
+package com.softarex.datacollector.model.dto;
 
 import com.softarex.datacollector.validator.annotation.PasswordsMatch;
 import com.softarex.datacollector.validator.annotation.UniqueEmail;

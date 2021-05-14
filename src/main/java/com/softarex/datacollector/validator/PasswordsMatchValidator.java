@@ -1,6 +1,6 @@
 package com.softarex.datacollector.validator;
 
-import com.softarex.datacollector.model.entity.user.UserDto;
+import com.softarex.datacollector.model.dto.UserDto;
 import com.softarex.datacollector.validator.annotation.PasswordsMatch;
 
 import javax.validation.ConstraintValidator;

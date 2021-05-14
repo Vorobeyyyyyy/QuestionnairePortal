@@ -1,6 +1,7 @@
 package com.softarex.datacollector.model.entity.answer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.softarex.datacollector.model.entity.BaseEntity;
+import com.softarex.datacollector.model.entity.user.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,11 +10,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "answers")
-public class Answer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "answer_id")
-    private Long id;
+public class Answer extends BaseEntity {
+    @ManyToOne
+    @JoinColumn(name = "asker_id")
+    private User asker;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "answer_id")
@@ -27,20 +27,20 @@ public class Answer {
         this.fieldAnswers = fieldAnswers;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public List<FieldAnswer> getFieldAnswers() {
         return fieldAnswers;
     }
 
     public void setFieldAnswers(List<FieldAnswer> fieldAnswerOptions) {
         this.fieldAnswers = fieldAnswerOptions;
+    }
+
+    public User getAsker() {
+        return asker;
+    }
+
+    public void setAsker(User asker) {
+        this.asker = asker;
     }
 
     @Override

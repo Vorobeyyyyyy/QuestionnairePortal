@@ -1,5 +1,6 @@
-package com.softarex.datacollector.model.entity.user;
+package com.softarex.datacollector.model.dto;
 
+import com.softarex.datacollector.validator.Regexp;
 import com.softarex.datacollector.validator.annotation.CurrentPassword;
 
 import javax.validation.constraints.Pattern;

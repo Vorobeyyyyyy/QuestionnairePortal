@@ -1,10 +1,10 @@
 package com.softarex.datacollector.controller;
 
 import com.softarex.datacollector.exception.UserNotFoundException;
-import com.softarex.datacollector.model.entity.user.ChangePasswordDto;
+import com.softarex.datacollector.model.dto.ChangePasswordDto;
 import com.softarex.datacollector.model.entity.user.SecurityUserDetails;
 import com.softarex.datacollector.model.entity.user.User;
-import com.softarex.datacollector.model.entity.user.UserDto;
+import com.softarex.datacollector.model.dto.UserDto;
 import com.softarex.datacollector.model.service.UserService;
 import com.softarex.datacollector.validator.group.ChangeProfileInfo;
 import org.apache.logging.log4j.Level;

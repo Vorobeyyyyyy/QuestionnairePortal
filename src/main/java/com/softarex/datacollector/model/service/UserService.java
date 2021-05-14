@@ -6,7 +6,7 @@ import com.softarex.datacollector.model.repository.UserRepository;
 import com.softarex.datacollector.model.entity.user.Role;
 import com.softarex.datacollector.model.entity.user.SecurityUserDetails;
 import com.softarex.datacollector.model.entity.user.User;
-import com.softarex.datacollector.model.entity.user.UserDto;
+import com.softarex.datacollector.model.dto.UserDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;

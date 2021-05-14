@@ -1,6 +1,6 @@
 package com.softarex.datacollector.controller;
 
-import com.softarex.datacollector.model.entity.user.UserDto;
+import com.softarex.datacollector.model.dto.UserDto;
 import com.softarex.datacollector.model.service.UserService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

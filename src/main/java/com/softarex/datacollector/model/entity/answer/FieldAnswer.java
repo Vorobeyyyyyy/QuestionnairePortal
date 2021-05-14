@@ -1,7 +1,6 @@
 package com.softarex.datacollector.model.entity.answer;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.softarex.datacollector.model.entity.BaseEntity;
 import com.softarex.datacollector.model.entity.field.Field;
 
 import javax.persistence.*;
@@ -10,18 +9,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "field_answers")
-public class FieldAnswer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "field_answer_id")
-    private Long id;
-
-    @JsonIgnore
+public class FieldAnswer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "answer_id")
     private Answer answer;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "field_id")
     private Field field;
@@ -39,19 +31,6 @@ public class FieldAnswer {
         this.answer = answer;
         this.field = field;
         this.options = options;
-    }
-
-    @JsonGetter("fieldId")
-    public Long getFieldId() {
-        return field.getId();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Answer getAnswer() {

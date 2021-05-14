@@ -1,16 +1,14 @@
 package com.softarex.datacollector.model.entity.user;
 
+import com.softarex.datacollector.model.entity.BaseEntity;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", unique = true, nullable = false)
-    private long id;
+public class User extends BaseEntity {
     @Column(unique = true)
     private String email;
     private String firstName;
@@ -43,14 +41,6 @@ public class User {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.roles = roles;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getEmail() {

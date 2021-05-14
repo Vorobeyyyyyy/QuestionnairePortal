@@ -1,5 +1,6 @@
 package com.softarex.datacollector.model.entity.user;
 
+import com.softarex.datacollector.model.entity.BaseEntity;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -7,11 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
-public class Role implements GrantedAuthority {
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id
-    @Column(name = "role_id")
-    private long id;
+public class Role extends BaseEntity implements GrantedAuthority {
     private String roleName;
 
     public Role() {
@@ -29,14 +26,6 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return roleName;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getRoleName() {

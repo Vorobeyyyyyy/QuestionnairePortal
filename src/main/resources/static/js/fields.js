@@ -85,7 +85,7 @@ const fieldsApp = {
                     this.page = data;
                 });
         },
-        deleteField(event) {
+        deleteField() {
             axios.post("/api/deleteField", {id: this.toDeleteField.id})
                 .then(response => {
                     console.log(response)

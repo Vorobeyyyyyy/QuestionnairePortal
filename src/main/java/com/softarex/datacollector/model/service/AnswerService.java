@@ -1,8 +1,10 @@
 package com.softarex.datacollector.model.service;
 
 import com.softarex.datacollector.model.entity.answer.Answer;
+import com.softarex.datacollector.model.dto.AnswerDto;
 import com.softarex.datacollector.model.entity.answer.FieldAnswer;
 import com.softarex.datacollector.model.entity.field.Field;
+import com.softarex.datacollector.model.entity.user.User;
 import com.softarex.datacollector.model.repository.AnswerRepository;
 import com.softarex.datacollector.model.repository.FieldAnswerRepository;
 import com.softarex.datacollector.model.repository.FieldRepository;
@@ -52,19 +54,11 @@ public class AnswerService {
         return answer;
     }
 
-    public List<Answer> findAll() {
-        return answerRepository.findAll(Sort.by("id"));
-    }
-
-    public Page<Answer> findAll(int page, int pageSize) {
-        if (pageSize <= 0) {
+    public Page<AnswerDto> findByAsker(int page, int pageSize, User asker) {
+        if (pageSize == 0) {
             pageSize = Integer.MAX_VALUE;
         }
-        return  answerRepository.findAll(PageRequest.of(page, pageSize, Sort.by("id").descending()));
-    }
-
-    public void addAnswer(Answer answer) {
-        answerRepository.save(answer);
+        return answerRepository.findByAsker(PageRequest.of(page, pageSize, Sort.by("id").descending()), asker).map(AnswerDto::new);
     }
 
     @Autowired

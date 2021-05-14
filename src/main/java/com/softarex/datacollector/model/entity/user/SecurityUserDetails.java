@@ -8,13 +8,7 @@ import java.util.Collection;
 public class SecurityUserDetails implements UserDetails {
     private String username;
     private String password;
-    private Collection<? extends  GrantedAuthority> authorities;
-
-    public SecurityUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-    }
+    private Collection<Role> authorities;
 
     public SecurityUserDetails(User user) {
         this.username = user.getEmail();

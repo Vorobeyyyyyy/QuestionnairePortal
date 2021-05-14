@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .authorizeRequests()
-                .mvcMatchers("/", "/add_answer", "/answer_success" , "/js/**", "/css/**", "/webjars/**", "/svg/**").permitAll()
+                .mvcMatchers("/questionnaire/**", "/add_answer", "/answer_success" , "/js/**", "/css/**", "/webjars/**", "/svg/**").permitAll()
                 .mvcMatchers("/registration").anonymous()
                 .anyRequest().authenticated()
                 .and()

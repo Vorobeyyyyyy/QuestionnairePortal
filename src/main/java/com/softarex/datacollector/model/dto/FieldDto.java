@@ -1,7 +1,10 @@
-package com.softarex.datacollector.model.entity.field;
+package com.softarex.datacollector.model.dto;
+
+import com.softarex.datacollector.model.entity.field.Field;
+import com.softarex.datacollector.model.entity.field.FieldType;
 
 import javax.validation.constraints.Size;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 public class FieldDto {
@@ -9,11 +12,20 @@ public class FieldDto {
     @Size(min = 2, max = 40)
     private String label;
     private FieldType type;
-    private Collection<String> options;
+    private List<String> options;
     private boolean required;
     private boolean active;
 
     public FieldDto() {
+    }
+
+    public FieldDto(Field field) {
+        this.id = field.getId();
+        this.label = field.getLabel();
+        this.type = field.getType();
+        this.options = field.getOptions();
+        this.required = field.isRequired();
+        this.active = field.isActive();
     }
 
     public void setType(FieldType type) {
@@ -40,11 +52,11 @@ public class FieldDto {
         return type;
     }
 
-    public Collection<String> getOptions() {
+    public List<String> getOptions() {
         return options;
     }
 
-    public void setOptions(Collection<String> options) {
+    public void setOptions(List<String> options) {
         this.options = options;
     }
 
