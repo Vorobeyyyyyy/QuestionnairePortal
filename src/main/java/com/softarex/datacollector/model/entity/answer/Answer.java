@@ -15,7 +15,7 @@ public class Answer extends BaseEntity {
     @JoinColumn(name = "asker_id")
     private User asker;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     @JoinColumn(name = "answer_id")
     private List<FieldAnswer> fieldAnswers = new ArrayList<>();
 

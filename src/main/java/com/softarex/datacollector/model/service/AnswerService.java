@@ -11,6 +11,7 @@ import com.softarex.datacollector.model.repository.FieldRepository;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +31,13 @@ public class AnswerService {
     private AnswerRepository answerRepository;
     private FieldRepository fieldRepository;
     private FieldAnswerRepository fieldAnswerRepository;
+
+    @Autowired
+    public AnswerService(AnswerRepository answerRepository, FieldRepository fieldRepository, FieldAnswerRepository fieldAnswerRepository) {
+        this.answerRepository = answerRepository;
+        this.fieldRepository = fieldRepository;
+        this.fieldAnswerRepository = fieldAnswerRepository;
+    }
 
     @Transactional
     public Answer addAnswer(MultiValueMap<String, String> rawFieldAnswers) {
@@ -54,25 +62,16 @@ public class AnswerService {
         return answer;
     }
 
+    @Transactional
     public Page<AnswerDto> findByAsker(int page, int pageSize, User asker) {
         if (pageSize == 0) {
             pageSize = Integer.MAX_VALUE;
         }
-        return answerRepository.findByAsker(PageRequest.of(page, pageSize, Sort.by("id").descending()), asker).map(AnswerDto::new);
-    }
-
-    @Autowired
-    public void setAnswerRepository(AnswerRepository answerRepository) {
-        this.answerRepository = answerRepository;
-    }
-
-    @Autowired
-    public void setFieldRepository(FieldRepository fieldRepository) {
-        this.fieldRepository = fieldRepository;
-    }
-
-    @Autowired
-    public void setFieldAnswerRepository(FieldAnswerRepository fieldAnswerRepository) {
-        this.fieldAnswerRepository = fieldAnswerRepository;
+        return answerRepository.findByAsker(PageRequest.of(page, pageSize, Sort.by("id").descending()), asker)
+                .map(answer -> {
+                    answer.getFieldAnswers().forEach(fieldAnswer -> Hibernate.initialize(fieldAnswer.getOptions()));
+                    return answer;
+                })
+                .map(AnswerDto::new);
     }
 }
