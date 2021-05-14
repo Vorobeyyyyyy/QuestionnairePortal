@@ -14,18 +14,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 @ExtendWith(MockitoExtension.class)
 class MailServiceTest {
     private final static String FROM = "noreply@test.com";
-    private MailService mailService = new MailService();
     @Mock
     JavaMailSender javaMailSender;
     @Mock
     MailProperty mailProperty;
-
-    @BeforeEach
-    void beforeEach() {
-        Mockito.when(mailProperty.getFrom()).thenReturn(FROM);
-        mailService.setJavaMailSender(javaMailSender);
-        mailService.setMailProperty(mailProperty);
-    }
+    private MailService mailService = new MailService(javaMailSender, mailProperty);
 
     @Test
     void sendMessage() {

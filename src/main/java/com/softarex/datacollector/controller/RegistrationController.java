@@ -22,7 +22,7 @@ public class RegistrationController {
     private UserService userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 

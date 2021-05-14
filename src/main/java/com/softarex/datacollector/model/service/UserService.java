@@ -29,6 +29,14 @@ public class UserService implements UserDetailsService {
     private MailService mailService;
     private MailProperty mailProperty;
 
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, MailService mailService, MailProperty mailProperty) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
+        this.mailProperty = mailProperty;
+    }
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -77,25 +85,5 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
         mailService.sendMessage(user, mailProperty.getPasswordChangeText(), mailProperty.getPasswordChangeText());
-    }
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Autowired
-    public void setMailService(MailService mailService) {
-        this.mailService = mailService;
-    }
-
-    @Autowired
-    public void setMailProperty(MailProperty mailProperty) {
-        this.mailProperty = mailProperty;
     }
 }

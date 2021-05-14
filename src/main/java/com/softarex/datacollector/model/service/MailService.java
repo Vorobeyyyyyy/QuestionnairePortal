@@ -14,6 +14,12 @@ public class MailService {
     private JavaMailSender javaMailSender;
     private MailProperty mailProperty;
 
+    @Autowired
+    public MailService(JavaMailSender javaMailSender, MailProperty mailProperty) {
+        this.javaMailSender = javaMailSender;
+        this.mailProperty = mailProperty;
+    }
+
     public void sendMessage(User user, String subject, String text) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(mailProperty.getFrom());
@@ -21,15 +27,5 @@ public class MailService {
         mailMessage.setSubject(subject);
         mailMessage.setText(text);
         javaMailSender.send(mailMessage);
-    }
-
-    @Autowired
-    public void setJavaMailSender(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
-
-    @Autowired
-    public void setMailProperty(MailProperty mailProperty) {
-        this.mailProperty = mailProperty;
     }
 }

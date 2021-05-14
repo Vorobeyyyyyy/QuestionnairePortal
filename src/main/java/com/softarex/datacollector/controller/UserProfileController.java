@@ -7,6 +7,7 @@ import com.softarex.datacollector.model.entity.user.User;
 import com.softarex.datacollector.model.dto.UserDto;
 import com.softarex.datacollector.model.service.UserService;
 import com.softarex.datacollector.validator.group.ChangeProfileInfo;
+import liquibase.pro.packaged.A;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,11 +27,10 @@ import java.security.Principal;
 @Controller
 public class UserProfileController {
     private final static Logger logger = LogManager.getLogger();
-
     private UserService userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public UserProfileController(UserService userService) {
         this.userService = userService;
     }
 
