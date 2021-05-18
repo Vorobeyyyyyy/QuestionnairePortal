@@ -2,6 +2,7 @@ package com.softarex.datacollector.model.dto;
 
 import com.softarex.datacollector.model.entity.answer.FieldAnswer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class FieldAnswerDto {
 
     public FieldAnswerDto(FieldAnswer fieldAnswer) {
         this.fieldId = fieldAnswer.getField().getId();
-        this.options = fieldAnswer.getOptions();
+        this.options = new ArrayList<>(fieldAnswer.getOptions());
     }
 
     public FieldAnswerDto(Long fieldId, List<String> options) {

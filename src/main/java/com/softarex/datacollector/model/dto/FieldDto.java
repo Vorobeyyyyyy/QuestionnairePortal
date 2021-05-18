@@ -4,6 +4,7 @@ import com.softarex.datacollector.model.entity.field.Field;
 import com.softarex.datacollector.model.entity.field.FieldType;
 
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public class FieldDto {
         this.id = field.getId();
         this.label = field.getLabel();
         this.type = field.getType();
-        this.options = field.getOptions();
+        this.options = new ArrayList<>(field.getOptions());
         this.required = field.isRequired();
         this.active = field.isActive();
     }
