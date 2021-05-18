@@ -89,6 +89,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-messaging</artifactId>
+            <version>5.4.6</version>
+        </dependency>
+
 
         <!--form validation-->
         <dependency>
