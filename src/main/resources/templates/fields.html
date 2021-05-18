@@ -21,6 +21,7 @@
     <div class="container mt-3 p-0 bg-white w-100 d-flex flex-column">
         <div class="border d-flex flex-row align-items-center justify-content-between">
             <div class="fs-2 m-2">Fields</div>
+            <a th:href="@{/questionnaire/1}" class="fs-2 text-decoration-none m-2 link-primary">To my questionnaire</a>
             <button @click="newField" class="btn btn-primary text-uppercase m-2" data-bs-toggle="modal"
                     data-bs-target="#add-field-modal">
                 <i class="bi-plus"></i> ADD FIELD

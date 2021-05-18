@@ -65,6 +65,7 @@ const fieldsApp = {
         connectWebSocket() {
             let connection = new SockJS("/ws");
             let stompClient = Stomp.over(connection);
+            stompClient.debug = null;
             stompClient.connect({}, () => {
                 stompClient.subscribe("/answers", (event) => {
                     if (event.body === "update") {
