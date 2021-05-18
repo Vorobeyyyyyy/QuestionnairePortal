@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class FieldService {
-    private FieldRepository fieldRepository;
+    private final FieldRepository fieldRepository;
 
     @Autowired
     public FieldService(FieldRepository fieldRepository) {
@@ -45,10 +45,6 @@ public class FieldService {
             pageSize = Integer.MAX_VALUE;
         }
         return fieldRepository.findByAsker(PageRequest.of(page, pageSize, Sort.by("id")), asker)
-                .map(field -> {
-                    Hibernate.initialize(field.getOptions());
-                    return field;
-                })
                 .map(FieldDto::new);
     }
 

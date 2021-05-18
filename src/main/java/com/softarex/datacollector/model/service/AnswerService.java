@@ -1,7 +1,7 @@
 package com.softarex.datacollector.model.service;
 
-import com.softarex.datacollector.model.entity.answer.Answer;
 import com.softarex.datacollector.model.dto.AnswerDto;
+import com.softarex.datacollector.model.entity.answer.Answer;
 import com.softarex.datacollector.model.entity.answer.FieldAnswer;
 import com.softarex.datacollector.model.entity.field.Field;
 import com.softarex.datacollector.model.entity.user.User;
@@ -11,7 +11,6 @@ import com.softarex.datacollector.model.repository.FieldRepository;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,9 +27,9 @@ import java.util.Optional;
 @Service
 public class AnswerService {
     private static final Logger logger = LogManager.getLogger();
-    private AnswerRepository answerRepository;
-    private FieldRepository fieldRepository;
-    private FieldAnswerRepository fieldAnswerRepository;
+    private final AnswerRepository answerRepository;
+    private final FieldRepository fieldRepository;
+    private final FieldAnswerRepository fieldAnswerRepository;
 
     @Autowired
     public AnswerService(AnswerRepository answerRepository, FieldRepository fieldRepository, FieldAnswerRepository fieldAnswerRepository) {
@@ -68,10 +67,6 @@ public class AnswerService {
             pageSize = Integer.MAX_VALUE;
         }
         return answerRepository.findByAsker(PageRequest.of(page, pageSize, Sort.by("id").descending()), asker)
-                .map(answer -> {
-                    answer.getFieldAnswers().forEach(fieldAnswer -> Hibernate.initialize(fieldAnswer.getOptions()));
-                    return answer;
-                })
                 .map(AnswerDto::new);
     }
 }

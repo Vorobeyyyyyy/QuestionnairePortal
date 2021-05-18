@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 @PropertySource("classpath:application.properties")
 public class MailService {
-    private JavaMailSender javaMailSender;
-    private MailProperty mailProperty;
+    private final JavaMailSender javaMailSender;
+    private final MailProperty mailProperty;
 
     @Autowired
     public MailService(JavaMailSender javaMailSender, MailProperty mailProperty) {

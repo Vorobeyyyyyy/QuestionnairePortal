@@ -1,12 +1,12 @@
 package com.softarex.datacollector.model.service;
 
 import com.softarex.datacollector.exception.UserNotFoundException;
-import com.softarex.datacollector.model.property.MailProperty;
-import com.softarex.datacollector.model.repository.UserRepository;
+import com.softarex.datacollector.model.dto.UserDto;
 import com.softarex.datacollector.model.entity.user.Role;
 import com.softarex.datacollector.model.entity.user.SecurityUserDetails;
 import com.softarex.datacollector.model.entity.user.User;
-import com.softarex.datacollector.model.dto.UserDto;
+import com.softarex.datacollector.model.property.MailProperty;
+import com.softarex.datacollector.model.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -24,10 +24,10 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
     private final static Logger logger = LogManager.getLogger();
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private MailService mailService;
-    private MailProperty mailProperty;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
+    private final MailProperty mailProperty;
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, MailService mailService, MailProperty mailProperty) {
