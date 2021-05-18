@@ -13,17 +13,17 @@ import java.util.Objects;
 @PasswordsMatch
 public class UserDto {
     @Email(groups = ChangeProfileInfo.class)
-    @UniqueEmail(groups = ChangeProfileInfo.class)
+    @UniqueEmail(groups = ChangeProfileInfo.class, message = "This email is already used")
     @NotBlank(groups = ChangeProfileInfo.class)
     private String email;
     @Size(max = 40, groups = ChangeProfileInfo.class)
     private String firstName;
     @Size(max = 40, groups = ChangeProfileInfo.class)
     private String lastName;
-    @Pattern(regexp = "^\\+[1-9]{1}[0-9]{3,14}$", groups = ChangeProfileInfo.class)
+    @Pattern(regexp = "^\\+[1-9]{1}[0-9]{3,14}$", groups = ChangeProfileInfo.class, message = "Wrong phone number format")
     private String phoneNumber;
 
-    @Pattern(regexp = "(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,40}$")
+    @Pattern(regexp = "(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,40}$", message = "Password should contain at least 1 digit, 1 upper-case and 1 lower-case letter and length >= 8")
     private String password;
     private String repeatedPassword;
 
