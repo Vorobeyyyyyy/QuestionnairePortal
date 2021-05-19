@@ -19,7 +19,6 @@
             </column>
             <column name="answer_id" type="BIGINT"/>
             <column name="field_id" type="BIGINT"/>
-            <column name="option" type="text[]"/>
         </createTable>
     </changeSet>
     <changeSet id="1.0.2" author="Alexander">
