@@ -71,6 +71,11 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    public UserDto findDtoByEmail(String email) throws UserNotFoundException{
+        return new UserDto(userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new));
+    }
+
     public User findByEmail(String email) throws UserNotFoundException {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         return optionalUser.orElseThrow(UserNotFoundException::new);

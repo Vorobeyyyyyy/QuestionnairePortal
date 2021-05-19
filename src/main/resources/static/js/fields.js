@@ -24,13 +24,14 @@ const fieldsApp = {
                 id: 0,
                 label: null
             },
-            deleteModal: {
-                done: false,
+            user: {
+                id: 0,
             }
         }
     },
     mounted() {
         this.updateFields(0);
+        this.loadUser();
     },
     computed: {
         haveOptions() {
@@ -88,15 +89,17 @@ const fieldsApp = {
         deleteField() {
             axios.post("/api/deleteField", {id: this.toDeleteField.id})
                 .then(response => {
-                    console.log(response)
-                    this.updateFields(this.page);
-                    this.deleteModal.done = true;
-                    setTimeout(() => {
-                            document.querySelector("#closeDeleteModalButton").click();
-                            setTimeout(() => this.deleteModal.done = false, 100);
-                        }, 500
-                    )
+                    this.updateFields(this.page.number);
+                    document.querySelector("#closeDeleteModalButton").click();
                 })
+        },
+        loadUser() {
+            axios.get("/api/get_myself")
+                .then(response => response.data)
+                .then(data => {
+                    this.user = data;
+                })
+
         }
     }
 }

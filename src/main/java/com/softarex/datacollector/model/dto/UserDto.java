@@ -1,8 +1,10 @@
 package com.softarex.datacollector.model.dto;
 
+import com.softarex.datacollector.model.entity.user.User;
 import com.softarex.datacollector.validator.annotation.PasswordsMatch;
 import com.softarex.datacollector.validator.annotation.UniqueEmail;
 import com.softarex.datacollector.validator.group.ChangeProfileInfo;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +14,7 @@ import java.util.Objects;
 
 @PasswordsMatch
 public class UserDto {
+    private Long id;
     @Email(groups = ChangeProfileInfo.class)
     @UniqueEmail(groups = ChangeProfileInfo.class, message = "This email is already used")
     @NotBlank(groups = ChangeProfileInfo.class)
@@ -25,9 +28,18 @@ public class UserDto {
 
     @Pattern(regexp = "(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,40}$", message = "Password should contain at least 1 digit, 1 upper-case and 1 lower-case letter and length >= 8")
     private String password;
+    @JsonIgnore
     private String repeatedPassword;
 
     public UserDto() {
+    }
+
+    public UserDto(User user) {
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.phoneNumber = user.getPhoneNumber();
     }
 
     public UserDto(String email, String firstName, String lastName, String phoneNumber, String password, String repeatedPassword) {
@@ -37,6 +49,14 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.repeatedPassword = repeatedPassword;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {

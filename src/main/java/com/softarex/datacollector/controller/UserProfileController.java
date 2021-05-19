@@ -2,12 +2,11 @@ package com.softarex.datacollector.controller;
 
 import com.softarex.datacollector.exception.UserNotFoundException;
 import com.softarex.datacollector.model.dto.ChangePasswordDto;
+import com.softarex.datacollector.model.dto.UserDto;
 import com.softarex.datacollector.model.entity.user.SecurityUserDetails;
 import com.softarex.datacollector.model.entity.user.User;
-import com.softarex.datacollector.model.dto.UserDto;
 import com.softarex.datacollector.model.service.UserService;
 import com.softarex.datacollector.validator.group.ChangeProfileInfo;
-import liquibase.pro.packaged.A;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -87,5 +87,11 @@ public class UserProfileController {
             }
         }
         return "change_password";
+    }
+
+    @GetMapping("/api/get_myself")
+    @ResponseBody
+    public UserDto getUser(Principal principal) throws UserNotFoundException{
+        return userService.findDtoByEmail(principal.getName());
     }
 }

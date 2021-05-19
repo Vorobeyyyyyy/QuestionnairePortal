@@ -30,7 +30,6 @@
             <column name="label" type="VARCHAR(255)"/>
             <column name="type" type="VARCHAR(255)"/>
             <column name="asker_id" type="BIGINT"/>
-            <column name="option" type="text[]"/>
             <column name="required" type="BOOLEAN"/>
             <column name="active" type="BOOLEAN"/>
         </createTable>
@@ -86,23 +85,23 @@
     </changeSet>
     <changeSet id="1.0.8" author="Alexander">
         <addForeignKeyConstraint baseColumnNames="asker_id" baseTableName="answers" constraintName="FK_ANSWERS_ON_ASKER"
-                                 referencedColumnNames="id" referencedTableName="users"/>
+                                 referencedColumnNames="id" referencedTableName="users" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="answer_id" baseTableName="field_answers"
                                  constraintName="FK_FIELD_ANSWERS_ON_ANSWER" referencedColumnNames="id"
-                                 referencedTableName="answers"/>
+                                 referencedTableName="answers" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="field_id" baseTableName="field_answers"
                                  constraintName="FK_FIELD_ANSWERS_ON_FIELD" referencedColumnNames="id"
-                                 referencedTableName="fields"/>
+                                 referencedTableName="fields" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="asker_id" baseTableName="fields" constraintName="FK_FIELDS_ON_ASKER"
-                                 referencedColumnNames="id" referencedTableName="users"/>
+                                 referencedColumnNames="id" referencedTableName="users" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_roles" constraintName="FK_USEROL_ON_ROLE"
-                                 referencedColumnNames="id" referencedTableName="roles"/>
+                                 referencedColumnNames="id" referencedTableName="roles" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_roles" constraintName="FK_USEROL_ON_USER"
-                                 referencedColumnNames="id" referencedTableName="users"/>
+                                 referencedColumnNames="id" referencedTableName="users" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="field_answer_id" baseTableName="field_answer_options" constraintName="FK_FIELD_ANSWER_OPTIONS_ON_FIELD_ANSWER"
-                                 referencedColumnNames="id" referencedTableName="answers"/>
+                                 referencedColumnNames="id" referencedTableName="answers" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="field_id" baseTableName="field_options" constraintName="FK_FIELD_OPTIONS_ON_FIELD"
-                                 referencedColumnNames="id" referencedTableName="fields"/>
+                                 referencedColumnNames="id" referencedTableName="fields" onDelete="CASCADE"/>
     </changeSet>
     <changeSet id="1.0.9" author="Alexander">
         <insert tableName="roles">

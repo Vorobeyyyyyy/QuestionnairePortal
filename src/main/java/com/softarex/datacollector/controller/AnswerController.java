@@ -3,7 +3,6 @@ package com.softarex.datacollector.controller;
 import com.softarex.datacollector.exception.UserNotFoundException;
 import com.softarex.datacollector.model.dto.AnswerDto;
 import com.softarex.datacollector.model.dto.FieldDto;
-import com.softarex.datacollector.model.entity.field.Field;
 import com.softarex.datacollector.model.entity.user.User;
 import com.softarex.datacollector.model.service.AnswerService;
 import com.softarex.datacollector.model.service.FieldService;
@@ -41,14 +40,15 @@ public class AnswerController {
     public String answer(Model model, @PathVariable Long id) {
         List<FieldDto> fields = fieldService.findByAskerId(id);
         model.addAttribute("fields", fields);
+        model.addAttribute("askerId", id);
         return "answer";
     }
 
     @PostMapping("/add_answer")
-    public String addAnswer(@RequestBody MultiValueMap<String, String> fieldAnswers) {
+    public String addAnswer(@RequestBody MultiValueMap<String, String> fieldAnswers) throws UserNotFoundException {
         fieldAnswers.remove("_csrf");
-        logger.info(fieldAnswers);
-        answerService.addAnswer(fieldAnswers);
+        Long askerId =  Long.parseLong(fieldAnswers.remove("askerId").get(0));
+        answerService.addAnswer(fieldAnswers, askerId);
         messagingTemplate.convertAndSend("/answers", "update");
         return "redirect:/answer_success";
     }

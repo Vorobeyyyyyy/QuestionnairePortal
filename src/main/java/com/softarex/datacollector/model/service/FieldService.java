@@ -54,6 +54,7 @@ public class FieldService {
 
     public Field fromDto(FieldDto dto) {
         Field field = new Field();
+        field.setId(dto.getId());
         field.setLabel(dto.getLabel());
         field.setOptions(dto.getOptions());
         field.setActive(dto.isActive());
