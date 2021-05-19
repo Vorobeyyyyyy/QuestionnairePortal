@@ -99,7 +99,7 @@
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_roles" constraintName="FK_USEROL_ON_USER"
                                  referencedColumnNames="id" referencedTableName="users" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="field_answer_id" baseTableName="field_answer_options" constraintName="FK_FIELD_ANSWER_OPTIONS_ON_FIELD_ANSWER"
-                                 referencedColumnNames="id" referencedTableName="answers" onDelete="CASCADE"/>
+                                 referencedColumnNames="id" referencedTableName="field_answers" onDelete="CASCADE"/>
         <addForeignKeyConstraint baseColumnNames="field_id" baseTableName="field_options" constraintName="FK_FIELD_OPTIONS_ON_FIELD"
                                  referencedColumnNames="id" referencedTableName="fields" onDelete="CASCADE"/>
     </changeSet>
