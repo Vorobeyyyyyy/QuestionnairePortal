@@ -1,7 +1,6 @@
 package com.softarex.datacollector.controller;
 
 import com.softarex.datacollector.exception.UserNotFoundException;
-import com.softarex.datacollector.model.entity.field.Field;
 import com.softarex.datacollector.model.dto.FieldDto;
 import com.softarex.datacollector.model.entity.user.User;
 import com.softarex.datacollector.model.service.FieldService;
@@ -15,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
 
@@ -39,7 +39,7 @@ public class FieldsController {
 
     @ResponseBody
     @PostMapping("/api/addField")
-    public ResponseEntity<String> addField(@RequestBody FieldDto fieldDto,
+    public ResponseEntity<String> addField(@RequestBody @Valid FieldDto fieldDto,
                                            Principal principal) throws UserNotFoundException {
         User user = userService.findByEmail(principal.getName());
         fieldService.createAndSaveFromDto(fieldDto, user);

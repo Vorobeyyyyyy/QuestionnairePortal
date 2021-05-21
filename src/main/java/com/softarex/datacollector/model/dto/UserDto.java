@@ -4,6 +4,7 @@ import com.softarex.datacollector.model.entity.user.User;
 import com.softarex.datacollector.validator.annotation.PasswordsMatch;
 import com.softarex.datacollector.validator.annotation.UniqueEmail;
 import com.softarex.datacollector.validator.group.ChangeProfileInfo;
+import com.softarex.datacollector.validator.group.RegisterUser;
 import net.minidev.json.annotate.JsonIgnore;
 
 import javax.validation.constraints.Email;
@@ -19,9 +20,9 @@ public class UserDto {
     @UniqueEmail(groups = ChangeProfileInfo.class, message = "This email is already used")
     @NotBlank(groups = ChangeProfileInfo.class)
     private String email;
-    @Size(max = 40, groups = ChangeProfileInfo.class)
+    @Size(max = 40, groups = {ChangeProfileInfo.class, RegisterUser.class})
     private String firstName;
-    @Size(max = 40, groups = ChangeProfileInfo.class)
+    @Size(max = 40, groups = {ChangeProfileInfo.class, RegisterUser.class})
     private String lastName;
     @Pattern(regexp = "^\\+[1-9]{1}[0-9]{3,14}$", groups = ChangeProfileInfo.class, message = "Wrong phone number format")
     private String phoneNumber;

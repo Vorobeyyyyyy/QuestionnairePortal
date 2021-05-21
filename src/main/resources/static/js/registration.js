@@ -1,5 +1,5 @@
 const inputs = document.querySelectorAll('input.form-control');
-inputs.forEach(input => updatePlaceholder(input));
+inputs.forEach( input => updatePlaceholder(input));
 inputs.forEach(t => t.addEventListener('input', e => updatePlaceholder(e.currentTarget)));
 
 function updatePlaceholder(input) {

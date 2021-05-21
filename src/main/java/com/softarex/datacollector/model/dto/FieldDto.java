@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class FieldDto {
     private Long id;
-    @Size(min = 2, max = 40)
+    @Size(min = 2, max = 200)
     private String label;
     private FieldType type;
     private List<String> options;

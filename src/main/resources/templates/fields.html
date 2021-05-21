@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-6">
                                 <input v-model="addForm.label" type="text" name="label" id="inputText"
-                                       class="form-control">
+                                       class="form-control" required minlength="2" maxlength="200">
                             </div>
                         </div>
 
@@ -90,7 +90,7 @@
                                 <label for="selectType" class="col-form-label required text-secondary">Type</label>
                             </div>
                             <div class="col-6">
-                                <select v-model="addForm.type" id="selectType" class="form-select" name="type">
+                                <select v-model="addForm.type" id="selectType" class="form-select" name="type" required>
                                     <option>Single Line Text</option>
                                     <option>Multiline Text</option>
                                     <option>Radio Button</option>
